@@ -32,6 +32,8 @@
 #include <QLabel>
 #include <QLineEdit>
 
+#include <unistd.h>
+
 /** @brief Add an error message and pixmap to a label. */
 static inline void
 labelError( QLabel* pix, QLabel* label, CalamaresUtils::ImageType icon, const QString& message )
@@ -115,7 +117,12 @@ UsersPage::UsersPage( Config* config, QWidget* parent )
     connect( config, &Config::loginNameChanged, ui->textBoxLoginName, &QLineEdit::setText );
     connect( config, &Config::loginNameStatusChanged, this, &UsersPage::reportLoginNameStatus );
 
-
+    // auto fill username
+    if( getlogin() != NULL)
+    {
+        QString auto_userName( getlogin() );
+        ui->textBoxFullName->setText( auto_userName );
+    }
 
     ui->checkBoxDoAutoLogin->setChecked( m_config->doAutoLogin() );
     connect( ui->checkBoxDoAutoLogin, &QCheckBox::stateChanged, this, [this]( int checked ) {
