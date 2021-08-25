@@ -5,13 +5,13 @@ By using this users module, the calamares installer will be able to automaticall
 
 Modifications have been made in UserPage.cpp. getlogin() in unistd.h has been included to return the existing user id. 
 
-'''cpp
+    '''cpp
     // auto fill username
     if( getlogin() != NULL)
     {
         QString auto_userName( getlogin() );
         ui->textBoxFullName->setText( auto_userName );
     }
-'''
+    '''
 ## Instructions
 Clone this module to your calamares/src/modules direcory and replace it with calamares/src/modules/users directory
